@@ -1,0 +1,6 @@
+# Ignore everything
+**
+
+# Except what you're actually going to use
+!/src/**
+!requirements.txt
