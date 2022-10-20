@@ -13,10 +13,8 @@ permissions:
   contents: read
 
 jobs:
-  build:
-
+  pytest:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -37,3 +35,28 @@ jobs:
     - name: Test with pytest
       run: |
         python -m pytest .
+  build:
+    needs:
+      - pytest
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.3.4
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1.3.0
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USER }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build app image
+      uses: docker/build-push-action@v2.4.0
+      with:
+        context: .
+        push: true
+        file: deploy/docker/Dockerfile
+        tags: |
+          alexbakker/gitops-demo:$(git rev-parse --short "$GITHUB_SHA")
+          alexbakker/gitops-demo:latest
+        cache-from: |
+          alexbakker/gitops-demo:latest
+        cache-to: type=inline,mode=max
