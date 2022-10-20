@@ -67,7 +67,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: https://github.com/FlaviusStilicho/gitops-demo-config
+          repository: FlaviusStilicho/gitops-demo-config
           ref: 'master'
           token:  ${{ secrets.ACTIONS_GITHUB_TOKEN }}
       - name: setup git config
