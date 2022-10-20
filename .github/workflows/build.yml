@@ -74,8 +74,8 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          echo {{ github.run_number }} > ./app/app_version.txt
+          echo ${{ github.run_number }} > ./app/app_version.txt
           git add ./app/app_version.txt
           git status
-          git commit -m "updating gitops-demo-app to version {{ github.run_number }}"
+          git commit -m "updating gitops-demo-app to version ${{ github.run_number }}"
           git push origin master
