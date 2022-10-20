@@ -55,7 +55,7 @@ jobs:
         push: true
         file: Dockerfile
         tags: |
-          alexbakker/gitops-demo:$(git rev-parse --short "$GITHUB_SHA")
+          alexbakker/gitops-demo:${{ github.run_number }}
           alexbakker/gitops-demo:latest
         cache-from: |
           alexbakker/gitops-demo:latest
