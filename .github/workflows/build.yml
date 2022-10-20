@@ -60,3 +60,19 @@ jobs:
         cache-from: |
           alexbakker/gitops-demo:latest
         cache-to: type=inline,mode=max
+  commit-to-config-repo:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: https://github.com/FlaviusStilicho/gitops-demo-config
+          ref: 'master'
+          token:  ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+      - name: setup git config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      - run: echo {{ github.run_number }} > ./app/app_version.txt
+      - run: git push origin master
