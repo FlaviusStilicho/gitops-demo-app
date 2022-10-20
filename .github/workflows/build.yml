@@ -53,7 +53,7 @@ jobs:
       with:
         context: .
         push: true
-        file: deploy/docker/Dockerfile
+        file: Dockerfile
         tags: |
           alexbakker/gitops-demo:$(git rev-parse --short "$GITHUB_SHA")
           alexbakker/gitops-demo:latest
