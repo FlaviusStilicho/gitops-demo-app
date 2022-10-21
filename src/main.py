@@ -8,7 +8,7 @@ def hello():
     return 'Hello!', 200, {}
 
 @app.route('/hello')
-def hello():
+def hello2():
     return 'Hello world!', 200, {}
 
 
